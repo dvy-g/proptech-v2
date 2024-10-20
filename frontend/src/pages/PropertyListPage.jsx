@@ -44,7 +44,7 @@ function PropertyListPage() {
 
     try {
       const response = await axios.get(
-        "http://localhost:3100/api/post/getposts",
+        "/post/getposts",
         {
           params: {
             category: queryParams.get("category"),
