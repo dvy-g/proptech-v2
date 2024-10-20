@@ -204,7 +204,7 @@ function UserProfilePage() {
                     </div>
                   ))}
                 </div>
-              ) : posts.length === 0 ? (
+              ) : posts?.length === 0 ? (
                 <Card variant="secondary">
                   <CardContent className="flex items-center justify-center min-h-[100px]">
                     <CardDescription>
