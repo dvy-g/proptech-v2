@@ -35,25 +35,18 @@ function UserProfilePage() {
   const getPosts = async () => {
     try {
       const response = await axios.get("/user/profileposts");
-    if (response) {
-      // Check if userPosts is defined
-      if (response.data.userPosts) {
-        setPosts(response.data.userPosts.posts || []); // Default to an empty array if posts is undefined
-        // Extract saved posts from the response, default to an empty array if savedPosts is undefined
-        const savedPostItems = response.data.userPosts.savedPosts
-          ? response.data.userPosts.savedPosts.map((item) => item.postId)
-          : [];
+      if (response?.data?.userPosts) {
+        setPosts(response.data.userPosts.posts || []);
+        const savedPostItems = response.data.userPosts.savedPosts?.map((item) => item.postId) || [];
         setSavedPosts(savedPostItems);
       } else {
-        // Handle the case where userPosts is undefined
-        setPosts([]); // or show an error message
+        setPosts([]);
         setSavedPosts([]);
       }
-      setLoading(false);
-    }
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching posts:", error);
       setError(true);
+    } finally {
       setLoading(false);
     }
   };
@@ -61,18 +54,19 @@ function UserProfilePage() {
   const getChats = async () => {
     try {
       const response = await axios.get("/chat/getchats");
-      if (response.data) {
-        setChats(response.data.chats);
-      }
+      setChats(response?.data?.chats || []);
     } catch (error) {
-      console.log("error getting chats", error);
+      console.error("Error getting chats:", error);
+      setChats([]);
     }
   };
 
   useEffect(() => {
-    getPosts();
-    getChats();
-  }, []);
+    if (currentUser) {
+      getPosts();
+      getChats();
+    }
+  }, [currentUser]);
 
   const handleLogout = () => {
     setLoading(true);
@@ -91,7 +85,9 @@ function UserProfilePage() {
     }, 1000);
   };
 
-  return currentUser ? (
+  if (!currentUser) return null;
+
+  return (
     <div className="container max-w-[1300px] mx-auto p-2 h-screen">
       <div className="grid md:grid-cols-4 h-[calc(100vh-2rem)] gap-2">
         {/* Left Column - Profile and Chats Section */}
@@ -140,14 +136,14 @@ function UserProfilePage() {
 
           {/* Chats Section */}
           <div className="flex flex-col">
-            {chats.length > 0 ? <Chats chats={chats} /> : <h3>No Messages</h3>}
+            {chats?.length > 0 ? <Chats chats={chats} /> : <h3>No Messages</h3>}
           </div>
+
           {/* Saved Posts Column */}
-          <Card className=" flex flex-col">
+          <Card className="flex flex-col">
             <CardHeader className="flex-none">
               <CardTitle>Saved Posts</CardTitle>
             </CardHeader>
-
             <CardContent className="flex-1">
               <ScrollArea className="h-[calc(100vh-160px)]">
                 {loading ? (
@@ -160,7 +156,7 @@ function UserProfilePage() {
                       </div>
                     ))}
                   </div>
-                ) : savedPosts.length === 0 ? (
+                ) : savedPosts?.length === 0 ? (
                   <Card variant="secondary">
                     <CardContent className="flex items-center justify-center min-h-[100px]">
                       <CardDescription>
@@ -178,8 +174,6 @@ function UserProfilePage() {
           </Card>
         </div>
 
-        {console.log(posts)}
-        {console.log(posts.length)}
         {/* Right Column - Posts */}
         <Card className="col-span-2 flex flex-col">
           <CardHeader className="flex-none">
@@ -222,7 +216,7 @@ function UserProfilePage() {
         </Card>
       </div>
     </div>
-  ) : null;
+  );
 }
 
 export default UserProfilePage;
