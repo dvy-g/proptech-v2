@@ -24,7 +24,7 @@ import { z } from "zod";
 import heroimage from "@/assets/house-primary.svg";
 import { HomeIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import { useToast } from "@/hooks/use-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/redux/userSlice";
@@ -61,7 +61,7 @@ function Login() {
       setLoading(true);
 
       const response = await axios.post(
-        "http://localhost:3100/api/auth/login",
+        "/auth/login",
         formData,
         {
           withCredentials: true, // Important for handling cookies
