@@ -35,15 +35,22 @@ function UserProfilePage() {
   const getPosts = async () => {
     try {
       const response = await axios.get("/user/profileposts");
-      if (response) {
-        setPosts(response.data.userPosts.posts);
-        // Extract saved posts from the response
-        const savedPostItems = response.data.userPosts.savedPosts.map(
-          (item) => item.postId
-        );
+    if (response) {
+      // Check if userPosts is defined
+      if (response.data.userPosts) {
+        setPosts(response.data.userPosts.posts || []); // Default to an empty array if posts is undefined
+        // Extract saved posts from the response, default to an empty array if savedPosts is undefined
+        const savedPostItems = response.data.userPosts.savedPosts
+          ? response.data.userPosts.savedPosts.map((item) => item.postId)
+          : [];
         setSavedPosts(savedPostItems);
-        setLoading(false);
+      } else {
+        // Handle the case where userPosts is undefined
+        setPosts([]); // or show an error message
+        setSavedPosts([]);
       }
+      setLoading(false);
+    }
     } catch (error) {
       console.log(error);
       setError(true);
