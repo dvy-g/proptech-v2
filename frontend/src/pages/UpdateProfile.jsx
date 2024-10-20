@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import axios from "../api/axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "@/redux/userSlice"; // Make sure this path matches your Redux setup
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
