@@ -17,7 +17,7 @@ const chatModel = require("./models/chat");
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "https://proptech-v2.vercel.app/",
+    origin: "https://proptech-v2.vercel.app",
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://proptech-v2.vercel.app/",
+    origin: "https://proptech-v2.vercel.app",
     credentials: true,
   })
 );
