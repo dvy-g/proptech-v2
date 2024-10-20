@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Search, AlertCircle } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../api/axios";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
