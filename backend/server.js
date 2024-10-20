@@ -18,8 +18,10 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: "https://proptech-v2.vercel.app",
-    methods: ["GET", "POST"],
-    credentials: true,
+   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
+        credentials: true, // If you're using credentials (like cookies)
+
   },
 });
 
@@ -27,7 +29,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://proptech-v2.vercel.app",
+     origin: "https://proptech-v2.vercel.app",
+   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
     credentials: true,
   })
 );
