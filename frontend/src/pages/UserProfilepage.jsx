@@ -178,6 +178,8 @@ function UserProfilePage() {
           </Card>
         </div>
 
+        {console.log(posts)}
+        {console.log(posts.length)}
         {/* Right Column - Posts */}
         <Card className="col-span-2 flex flex-col">
           <CardHeader className="flex-none">
