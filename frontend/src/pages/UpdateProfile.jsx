@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "../api/axios";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "@/redux/userSlice"; // Make sure this path matches your Redux setup
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -66,7 +66,7 @@ function UpdateProfile() {
   const onSubmit = async (formData) => {
     try {
       const response = await axios.put(
-        `/user/updateuser/${id}`,
+        `https://proptech-v2.onrender.com/api/user/updateuser/${id}`,
         {
           username: formData.username,
           password: formData.password,
