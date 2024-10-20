@@ -66,7 +66,7 @@ function UpdateProfile() {
   const onSubmit = async (formData) => {
     try {
       const response = await axios.put(
-        `http://localhost:3100/api/user/updateuser/${id}`,
+        `/user/updateuser/${id}`,
         {
           username: formData.username,
           password: formData.password,
@@ -99,7 +99,7 @@ function UpdateProfile() {
         // Optional: Fetch fresh user data from server to ensure consistency
         try {
           const refreshResponse = await axios.get(
-            `http://localhost:3100/api/user/${id}`,
+            `/api/user/${id}`,
             { withCredentials: true }
           );
           if (refreshResponse.data) {
